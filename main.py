@@ -1,5 +1,11 @@
 import os
 import platform as pf
+import sys
+
+copyright = False
+show_environ = False
+do_tuple = False
+path_searching_modules = False
 
 if os.name == "posix":
     print(f"Имя ОС: {os.name} (Вероятно Android, Linux, macOS, BSD, Solaris)")
@@ -26,8 +32,6 @@ if "u0_" in os.getlogin():
     print(f"Ваш юзернейм: {os.getlogin()} (Вероятно Android)")
 else:
     print(f"Ваш юзернейм: {os.getlogin()}")
-    
-show_environ = False
 
 if show_environ:
     environ = dict(os.environ)
@@ -60,8 +64,6 @@ print(f"Имя узла: {pf.node()}")
 
 print(f"Реализация Python: {pf.python_implementation()}")
 
-do_tuple = False
-
 if do_tuple:
     print(f"Версия Python (кортеж): {pf.python_version_tuple()}")  
     
@@ -93,3 +95,25 @@ mac_version = pf.mac_ver()
 if mac_version[0]:
     print(f"Издание MacOS: {mac_version}")
 
+if sys.platform == "win32":
+    print(f"Платформа: {sys.platform} (Вероятно Windows)")
+else:
+    print(f"Платформа: {sys.platform}")
+
+print(f"Версия Python: {sys.version}")
+print(f"Реализация Python: {sys.implementation}")
+print(f"Версия API Python: {sys.api_version}")
+
+if copyright:
+    print(f"Копирайт: {sys.copyright}")
+
+print(f"Версия Python: {sys.hexversion}")
+
+if path_searching_modules:
+    print(f"Пути поиска модулей: {sys.path}")
+
+print(f"Все импортированные модули: {', '.join([name for name in sys.modules.keys() if not name.startswith('_') and '.' not in name])}")
+print(f"Путь к интерпретатору: {sys.executable}")
+print(f"Путь к директории установки Python: {sys.prefix}")
+print(f"Путь к директории установки Python (без venv): {sys.base_prefix}")
+print(f"Аргументы командной строки: {sys.argv}")
