@@ -66,7 +66,11 @@ if do_tuple:
     print(f"Версия Python (кортеж): {pf.python_version_tuple()}")  
     
 print(f"Версия Python: {pf.python_version()}")
-print(f"Билд Python: {pf.python_build()}")
+
+build_number, build_date = pf.python_build()
+print(f"Номер сборки Python: {build_number}")
+print(f"Дата сборки Python: {build_date}")
+
 print(f"Компилятор Python: {pf.python_compiler()}")
 
 architecture = pf.architecture()
@@ -77,7 +81,15 @@ if architecture[1] == "ELF":
 else:
     print(f"Линковка: {architecture[1]}")
 
-print(f"Издание Windows: {pf.win32_edition()}")
-print(f"Версия Windows: {pf.win32_ver()}")
+if os.name == "nt":
+    win_info = pf.win32_ver()
+    print(f"Издание Windows: {pf.win32_edition()}")
+    print(f"Версия ОС: {win_info[0]}")
+    print(f"Версия сборки: {win_info[1]}")
+    print(f"Service Pack: {win_info[2]}")
+    print(f"Тип системы: {win_info[3]}")
 
-print(f"Издание MacOS: {pf.mac_ver()}")
+mac_version = pf.mac_ver()
+if mac_version[0]:
+    print(f"Издание MacOS: {mac_version}")
+
