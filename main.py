@@ -6,6 +6,7 @@ copyright = False
 show_environ = False
 do_tuple = False
 path_searching_modules = False
+sys_flags = False
 
 if os.name == "posix":
     print(f"Имя ОС: {os.name} (Вероятно Android, Linux, macOS, BSD, Solaris)")
@@ -85,11 +86,13 @@ else:
 
 if os.name == "nt":
     win_info = pf.win32_ver()
+    print(f"_: {sys.getwindowsversion}")
     print(f"Издание Windows: {pf.win32_edition()}")
     print(f"Версия ОС: {win_info[0]}")
     print(f"Версия сборки: {win_info[1]}")
     print(f"Service Pack: {win_info[2]}")
     print(f"Тип системы: {win_info[3]}")
+    
 
 mac_version = pf.mac_ver()
 if mac_version[0]:
@@ -117,3 +120,42 @@ print(f"Путь к интерпретатору: {sys.executable}")
 print(f"Путь к директории установки Python: {sys.prefix}")
 print(f"Путь к директории установки Python (без venv): {sys.base_prefix}")
 print(f"Аргументы командной строки: {sys.argv}")
+
+if sys_flags:
+    for flag_name in dir(sys.flags):
+        if not flag_name.startswith('_'):
+            value = getattr(sys.flags, flag_name)
+            print(f"{flag_name} = {value}")
+            
+
+print(f"Максимальное значение float: {sys.float_info.max}")
+print(f"Минимальное положительное значение float: {sys.float_info.min}")
+print(f"Точность float (знаков после запятой): {sys.float_info.dig}")
+print(f"Эпсилон float (разница между 1.0 и следующим значением): {sys.float_info.epsilon}")    
+
+int_info = sys.int_info
+print(f"Бит на цифру: {int_info.bits_per_digit}")
+print(f"Размер цифры в байтах: {int_info.sizeof_digit}")
+print(f"Максимальное значение цифр при конвертации в строку: {int_info.default_max_str_digits}")
+print(f"Порог проверки: {int_info.str_digits_check_threshold}")
+
+hash_info = sys.hash_info
+print(f"Алгоритм: {hash_info.algorithm}")
+print(f"Бит в хэше: {hash_info.width}")
+print(f"Бит хэш-значения: {hash_info.hash_bits}")
+print(f"Бит зерна: {hash_info.seed_bits}")
+print(f"Модуль: {hash_info.modulus}")
+print(f"Множитель мнимых: {hash_info.imag}")
+print(f"Хэш бесконечности: {hash_info.inf}")
+print(f"Хэш NaN: {hash_info.nan}\n")
+
+print(f"Максимальный размер контейнеров: {sys.maxsize}")
+print(f"Максимальное значение Unicode: {sys.maxunicode}\n")
+
+
+thread_info = sys.thread_info
+print(f"Реализация потоков: {thread_info.name}")
+print(f"Тип блокировки: {thread_info.lock}")
+print(f"Версия: {thread_info.version}")
+      
+sys.exit(67)
