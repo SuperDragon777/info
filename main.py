@@ -51,6 +51,8 @@ if sys.platform == "win32":
     print(f"Платформа: {sys.platform} (Вероятно Windows)")
 elif sys.platform == "android":
     print(f"Платформа: {sys.platform} (Вероятно Android)")
+elif sys.platform == "linux":
+	   print(f"Платформа: {sys.platform} (Вероятно Linux)")
 else:
     print(f"Платформа: {sys.platform}")
     
