@@ -3,7 +3,7 @@ import platform as pf
 import sys
 import datetime as dt
 import socket
-import multiprocessing
+import multiprocessing as mp
 
 import subprocess
 
@@ -75,7 +75,11 @@ if show_environ:
     for key, value in sorted(environ.items()):
         print(f"{key} = {value}")
 
-  
+print(f"Активные дочерние процессы: {mp.active_children()}")
+print(f"Имя процесса: {mp.current_process().name}")
+print(f"Процесс жив: {mp.current_process().is_alive()}")
+# print(f"Код завершения процесса: {mp.current_process().exitcode}")
+print(f"ID процесса (multiprocessing): {mp.current_process().pid}")
 print(f"ID процесса: {os.getpid()}")
 print(f"ID родительского процесса: {os.getppid()}")
 
@@ -105,7 +109,7 @@ else:
     print(f"Линковка: {architecture[1]}")
     
 print(f"Количество ядер: {os.cpu_count()}")
-print(f"Количество ядер (multiprocessing): {multiprocessing.cpu_count()}")
+print(f"Количество ядер (multiprocessing): {mp.cpu_count()}")
 print()
 
 print(f"Название ОС: {pf.platform()}")
