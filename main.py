@@ -13,6 +13,9 @@ sys_flags = False
 datetime = False
 more_python_info = False
 py_modules = False
+do_float = False
+do_int_info = False
+do_hash_info = False
 
 if os.name == "posix":
     print(f"Имя ОС: {os.name} (Вероятно Android, Linux, macOS, BSD, Solaris)")
@@ -52,7 +55,7 @@ if sys.platform == "win32":
 elif sys.platform == "android":
     print(f"Платформа: {sys.platform} (Вероятно Android)")
 elif sys.platform == "linux":
-	   print(f"Платформа: {sys.platform} (Вероятно Linux)")
+	print(f"Платформа: {sys.platform} (Вероятно Linux)")
 else:
     print(f"Платформа: {sys.platform}")
     
@@ -154,30 +157,31 @@ if sys_flags:
             print(f"{flag_name} = {value}")
             
 
-print(f"Максимальное значение float: {sys.float_info.max}")
-print(f"Минимальное положительное значение float: {sys.float_info.min}")
-print(f"Точность float (знаков после запятой): {sys.float_info.dig}")
-print(f"Эпсилон float (разница между 1.0 и следующим значением): {sys.float_info.epsilon}")    
+if do_float:
+    print(f"Максимальное значение float: {sys.float_info.max}")
+    print(f"Минимальное положительное значение float: {sys.float_info.min}")
+    print(f"Точность float (знаков после запятой): {sys.float_info.dig}")
+    print(f"Эпсилон float (разница между 1.0 и следующим значением): {sys.float_info.epsilon}")    
+    print()
 
-print()
+if do_int_info:
+    int_info = sys.int_info
+    print(f"Бит на цифру: {int_info.bits_per_digit}")
+    print(f"Размер цифры в байтах: {int_info.sizeof_digit}")
+    print(f"Максимальное значение цифр при конвертации в строку: {int_info.default_max_str_digits}")
+    print(f"Порог проверки: {int_info.str_digits_check_threshold}")
+    print()
 
-int_info = sys.int_info
-print(f"Бит на цифру: {int_info.bits_per_digit}")
-print(f"Размер цифры в байтах: {int_info.sizeof_digit}")
-print(f"Максимальное значение цифр при конвертации в строку: {int_info.default_max_str_digits}")
-print(f"Порог проверки: {int_info.str_digits_check_threshold}")
-
-print()
-
-hash_info = sys.hash_info
-print(f"Алгоритм: {hash_info.algorithm}")
-print(f"Бит в хэше: {hash_info.width}")
-print(f"Бит хэш-значения: {hash_info.hash_bits}")
-print(f"Бит зерна: {hash_info.seed_bits}")
-print(f"Модуль: {hash_info.modulus}")
-print(f"Множитель мнимых: {hash_info.imag}")
-print(f"Хэш бесконечности: {hash_info.inf}")
-print(f"Хэш NaN: {hash_info.nan}\n")
+if do_hash_info:
+    hash_info = sys.hash_info
+    print(f"Алгоритм: {hash_info.algorithm}")
+    print(f"Бит в хэше: {hash_info.width}")
+    print(f"Бит хэш-значения: {hash_info.hash_bits}")
+    print(f"Бит зерна: {hash_info.seed_bits}")
+    print(f"Модуль: {hash_info.modulus}")
+    print(f"Множитель мнимых: {hash_info.imag}")
+    print(f"Хэш бесконечности: {hash_info.inf}")
+    print(f"Хэш NaN: {hash_info.nan}\n")
 
 print(f"Максимальный размер контейнеров: {sys.maxsize}")
 print(f"Максимальное значение Unicode: {sys.maxunicode}\n")
@@ -191,10 +195,8 @@ print(f"Версия: {thread_info.version}")
 print(f"Порядок байтов: {sys.byteorder}\n")
 
 if datetime:
-    print("=== DATETIME ===")
     print(f"Дата выполнения: {dt.date.today()}")
     print(f"Дата и время выполнения: {dt.datetime.now()}")
-    print(f"Дата и время выполнения (UTC): {dt.datetime.utcnow()}")
     print(f"День недели выполнения: {dt.date.today().weekday()}")
     print(f"Год выполнения: {dt.date.today().year}")
     print(f"Число выполнения: {dt.date.today().day}")
