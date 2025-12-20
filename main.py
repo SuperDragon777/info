@@ -3,6 +3,7 @@ import platform as pf
 import sys
 import datetime as dt
 import socket
+import multiprocessing
 
 import subprocess
 
@@ -103,7 +104,9 @@ elif architecture[1] == "WindowsPE":
 else:
     print(f"Линковка: {architecture[1]}")
     
-print(f"Количество ядер: {os.cpu_count()}\n")
+print(f"Количество ядер: {os.cpu_count()}")
+print(f"Количество ядер (multiprocessing): {multiprocessing.cpu_count()}")
+print()
 
 print(f"Название ОС: {pf.platform()}")
 print(f"Версия ОС: {pf.release()}")
@@ -211,12 +214,14 @@ print(f"Имя устройства (fqdn): {socket.getfqdn()}")
 print(f"Имя устройства: {socket.gethostname()}")
 print(f"Локальный IP: {socket.gethostbyname('localhost')}")
 print(f"Глобальный IP: {socket.gethostbyname(socket.gethostname())}")
+print()
 
 if do_all_ip:
-    print()
     for info in socket.getaddrinfo(socket.gethostname(), None):
         ip = info[4][0]
         print(f"IP интерфейса: {ip}")
+    print()
 
+print(1)
 
 sys.exit(67)
