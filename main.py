@@ -4,6 +4,7 @@ import sys
 import datetime as dt
 import socket
 import multiprocessing as mp
+import shutil
 
 import subprocess
 
@@ -93,6 +94,8 @@ print()
 
 size = os.get_terminal_size()
 print(f"Размер терминала: {size.columns} на {size.lines}")
+shutil_size = shutil.get_terminal_size()
+print(f"Размер терминала (shutil): {shutil_size.columns} на {shutil_size.lines}")
 print(f"Аргументы командной строки: {sys.argv}")
 print()
 
@@ -214,7 +217,7 @@ if datetime:
     print(f"Секунда выполнения: {dt.datetime.now().second}")
     print(f"Микросекнуда выполнения: {dt.datetime.now().microsecond}\n")
 
-print(f"Имя устройства (fqdn): {socket.getfqdn()}")
+# print(f"Имя устройства (fqdn): {socket.getfqdn()}")
 print(f"Имя устройства: {socket.gethostname()}")
 print(f"Локальный IP: {socket.gethostbyname('localhost')}")
 print(f"Глобальный IP: {socket.gethostbyname(socket.gethostname())}")
@@ -226,6 +229,30 @@ if do_all_ip:
         print(f"IP интерфейса: {ip}")
     print()
 
-print(1)
+try:
+    total, used, free = shutil.disk_usage("c:/")
+    print(f"Всего на диске C: {total // (2**30):.1f} GB")
+    print(f"Использовано на диске C: {used // (2**30):.1f} GB")
+    print(f"Свободно на диске C: {free // (2**30):.1f} GB")
+except:
+    pass
+
+try:
+    print()
+    total, used, free = shutil.disk_usage("d:/")
+    print(f"Всего на диске D: {total // (2**30):.1f} GB")
+    print(f"Использовано на диске D: {used // (2**30):.1f} GB")
+    print(f"Свободно на диске D: {free // (2**30):.1f} GB")
+except:
+    pass
+
+try:
+    print()
+    total, used, free = shutil.disk_usage("e:/")
+    print(f"Всего на диске E: {total // (2**30):.1f} GB")
+    print(f"Использовано на диске E: {used // (2**30):.1f} GB")
+    print(f"Свободно на диске E: {free // (2**30):.1f} GB")
+except:
+    pass
 
 sys.exit(67)
