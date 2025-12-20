@@ -2,6 +2,7 @@ import os
 import platform as pf
 import sys
 import datetime as dt
+import socket
 
 import subprocess
 
@@ -16,6 +17,7 @@ py_modules = False
 do_float = False
 do_int_info = False
 do_hash_info = False
+do_all_ip = False
 
 if os.name == "posix":
     print(f"Имя ОС: {os.name} (Вероятно Android, Linux, macOS, BSD, Solaris)")
@@ -205,6 +207,16 @@ if datetime:
     print(f"Секунда выполнения: {dt.datetime.now().second}")
     print(f"Микросекнуда выполнения: {dt.datetime.now().microsecond}\n")
 
+print(f"Имя устройства (fqdn): {socket.getfqdn()}")
+print(f"Имя устройства: {socket.gethostname()}")
+print(f"Локальный IP: {socket.gethostbyname('localhost')}")
+print(f"Глобальный IP: {socket.gethostbyname(socket.gethostname())}")
+
+if do_all_ip:
+    print()
+    for info in socket.getaddrinfo(socket.gethostname(), None):
+        ip = info[4][0]
+        print(f"IP интерфейса: {ip}")
 
 
 sys.exit(67)
