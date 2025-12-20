@@ -93,6 +93,8 @@ architecture = pf.architecture()
 print(f"Разрядность: {architecture[0]}")
 if architecture[1] == "ELF":
     print(f"Линковка: {architecture[1]} (Возможно Linux, Unix)")
+elif architecture[1] == "WindowsPE":
+    print(f"Линковка: {architecture[1]} (Возможно Windows)")
 else:
     print(f"Линковка: {architecture[1]}")
     
@@ -132,8 +134,12 @@ print()
 
 if os.name == "nt":
     win_info = pf.win32_ver()
-    print(f"_: {sys.getwindowsversion}")
-    print(f"_: {sys.winwer}")
+    getwindowsversion = sys.getwindowsversion()
+    print(f"Мажор: {getwindowsversion.major}")
+    print(f"Минор: {getwindowsversion.minor}")
+    print(f"Билд: {getwindowsversion.build}")
+    print(f"Платформа: {getwindowsversion.platform}")
+    print(f"WINVER: {sys.winver}")
     print(f"Издание Windows: {pf.win32_edition()}")
     print(f"Версия ОС: {win_info[0]}")
     print(f"Версия сборки: {win_info[1]}")
